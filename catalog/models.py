@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 import uuid # Requerida para las instancias de libros únicos
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Genre(models.Model):
@@ -59,6 +60,7 @@ class BookInstance(models.Model):
         book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
         imprint = models.CharField(max_length=200)
         due_back = models.DateField(null=True, blank=True)
+        borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
         LOAN_STATUS = (
             ('m', 'Maintenance'),
